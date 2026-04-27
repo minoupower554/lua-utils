@@ -15,7 +15,7 @@ The math module returns a table that contains these methods:
 The misc module is not a classic module but instead a directory, therefore you have to import every function you want explicitely. It contains a number of miscellaneous functions that arent related to eachother, the current methods are:
 <br/>
 - `switch(cases: table<T, S>, value: T, default: S?) -> S|nil` emulates the behaviour of a switch from other programming languages, returning the case of the passed value or an optional default if provided, returns nil otherwise
-- `dump` the serpent lua serializer and pretty printer, see [serpent](https://github.com/pkulchenko/serpent) for documentation
+- `dump` a lua table pretty printer
 
 ## Third Party
-This project includes an unedited version of [serpent](https://github.com/pkulchenko/serpent) made by Paul Kulchenko and licensed under the MIT license, see the file header for the license contents.
+This project includes a heavily rewritten version of [serpent](https://github.com/pkulchenko/serpent) made by Paul Kulchenko and licensed under the MIT license, see the file header for the license contents.
