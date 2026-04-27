@@ -1,3 +1,5 @@
+---@param str string
+---@return string
 return function(str)
     -- split into lines
     local lines = {}

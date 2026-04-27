@@ -122,14 +122,23 @@ local function serialize(t, opts)
 	return val2str(t, opts.name, 0, opts.name)
 end
 
+---@alias options {indent: string, maxlevel: integer, usestr: boolean}
+
+---@param val boolean
+---@param opts options
+---@return string
 function serpent.block(val, opts)
 	return serialize(val, opts)
 end
 
+---@param val boolean
+---@param opts options
+---@return string
 function serpent.line(val, opts)
 	local s = serialize(val, opts)
 	return (s:gsub("%s+", " "):gsub("{ ", "{"):gsub(" }", "}"))
 end
+
 
 function serpent.dump(val, label)
 	local s = serialize(val, { name = label })
