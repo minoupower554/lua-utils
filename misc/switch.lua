@@ -4,7 +4,7 @@
 ---@param value T
 ---@param default S?
 ---@return S
-return function(cases, value, default)
+return function(value, cases, default)
     local val = cases[value]
     if val == nil then
         return default
