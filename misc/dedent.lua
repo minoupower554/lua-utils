@@ -1,6 +1,19 @@
 ---@param str string
+---@param stripEdgeNewlines boolean|nil -- removes first/last newline if present (default: true)
 ---@return string
-return function(str)
+return function(str, stripEdgeNewlines)
+    stripEdgeNewlines = (stripEdgeNewlines == nil) and true or stripEdgeNewlines
+
+    -- strip only ONE leading newline
+    if stripEdgeNewlines and str:sub(1, 1) == "\n" then
+        str = str:sub(2)
+    end
+
+    -- strip only ONE trailing newline
+    if stripEdgeNewlines and str:sub(-1) == "\n" then
+        str = str:sub(1, -2)
+    end
+
     -- split into lines
     local lines = {}
     for line in (str .. "\n"):gmatch("(.-)\n") do
@@ -11,11 +24,10 @@ return function(str)
     local minIndent = nil
 
     for _, line in ipairs(lines) do
-        if line:match("%S") then -- ignore empty/whitespace-only lines
+        if line:match("%S") then
             local indent = line:match("^(%s*)")
             local len = 0
 
-            -- count indentation width (treat tab as 1 unit; adjust if you want 4 spaces per tab)
             for c in indent:gmatch(".") do
                 if c == "\t" then
                     len = len + 4
@@ -34,7 +46,6 @@ return function(str)
         return str
     end
 
-    -- remove indentation
     local function strip_indent(line)
         local count = minIndent
         local i = 1
