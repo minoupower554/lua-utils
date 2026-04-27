@@ -16,6 +16,7 @@ The misc module is not a classic module but instead a directory, therefore you h
 <br/>
 - `switch(cases: table<T, S>, value: T, default: S?) -> S|nil` emulates the behaviour of a switch from other programming languages, returning the case of the passed value or an optional default if provided, returns nil otherwise
 - `dump` a lua table pretty printer
+- `dedent(str: string) -> string` simple dedent function, useful for multiline strings
 
 ## Third Party
 This project includes a heavily rewritten version of [serpent](https://github.com/pkulchenko/serpent) made by Paul Kulchenko and licensed under the MIT license, see the file header for the license contents.
