@@ -5,5 +5,10 @@
 ---@param default S?
 ---@return S
 return function(cases, value, default)
-    return cases[value] or default
+    local val = cases[value]
+    if val == nil then
+        return default
+    else
+        return val
+    end
 end
