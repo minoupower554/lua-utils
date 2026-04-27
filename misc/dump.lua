@@ -124,14 +124,14 @@ end
 
 ---@alias options {indent: string, maxlevel: integer, usestr: boolean}
 
----@param val boolean
+---@param val table
 ---@param opts options
 ---@return string
 function serpent.block(val, opts)
 	return serialize(val, opts)
 end
 
----@param val boolean
+---@param val table
 ---@param opts options
 ---@return string
 function serpent.line(val, opts)
@@ -139,7 +139,8 @@ function serpent.line(val, opts)
 	return (s:gsub("%s+", " "):gsub("{ ", "{"):gsub(" }", "}"))
 end
 
-
+---@param val table
+---@param label string
 function serpent.dump(val, label)
 	local s = serialize(val, { name = label })
 	print(s)
