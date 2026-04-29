@@ -2,13 +2,20 @@
 local source = debug.getinfo(1).source
 local dir = source:match("@(.*/)")
 
+
 local function register_module(registry, name, mod)
+    if registry[name] ~= nil then
+        error("fatal: namespace registry name collision. this is an internal library error. please report any occurrences")
+    end
     -- register the namespace
     registry[name] = mod
 
     -- register all functions directly
     for k, v in pairs(mod) do
         if type(v) ~= "table" then
+            if registry[k] ~= nil then
+                error("fatal: function registry name collision. this is an internal library error. please report any occurrences")
+            end
             registry[k] = v
         end
     end
