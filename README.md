@@ -31,6 +31,8 @@ The types module contains these types:
   - `:map_or(fn: (T) -> U, default: U): U` run fn on the inner value and return the result if Some, return default otherwise.
   - `:map_or_else(fn: (T) -> U, default_fn: () -> U): U` run fn on the inner value and return the result if Some, run default_fn and return it's result otherwise
   - `:inspect(fn: (&T) -> nil): Option<T>` run a side effect function on the inner value if Some and return self, do nothing otherwise.
+  - `:flatten<where T: Option<U>>(): Option<U>` flatten an `Option<Option<U>>` into `Option<U>`.
+  - `:transpose<where T: Result<U, E>>(): Result<Option<U>, E>` turn an `Option<Result<U, E>>` into a `Result<Option<U>, E>`.
   - `:filter(pred: (&T) -> boolean): Option<T>` run the predicate function on the value and return self if Some and predicate returns true. return None otherwise.
 - `Result<T, E>` a lua implementation of a rust-like Option type
   - TODO: ADD RESULT DOCS AND FINISH OPTION DOCS
@@ -41,7 +43,7 @@ the table module currently contains this method:
   - `opts: table` the options table used by both methods provided.
     - `indent: string` define what is used as the indentation (repeated once, so "  " is 2 spaces, not 8). default: 4 spaces.
     - `maxlevel: integer` set how deep the printer recurses before cutting off output. default: 64 levels deep.
-    - `usestr: boolean` whether to use the __tostring method instead of printing table contents when its available. default: false.
+    - `usestr: boolean` whether to use the __tostring method instead of printing table contents when available. default: true.
     - `name: string` what name to prefix the table with (eg `myname={foo="bar"}`), nil results in an anonymous table. default: nil.
   - `block(val: table, opts: table)` pretty print a table across multiple lines with indentation. see opts for options info.
   - `line(val: table, opts: table)` pretty print a table on a single line. see opts for options info.
