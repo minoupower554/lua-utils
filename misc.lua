@@ -1,11 +1,11 @@
 local misc = {}
 
----@generic T
----@generic S
----@param cases table<T, S>
----@param value T
----@param default S?
----@return S
+---@generic K
+---@generic V
+---@param cases table<K, V>
+---@param value K
+---@param default V?
+---@return V
 function misc.switch(value, cases, default)
     local val = cases[value]
     if val == nil then
@@ -18,11 +18,11 @@ end
 
 ---make an immutable copy of any value
 ---@generic T
----@param v T
+---@param val T
 ---@return T
-function misc.readonly(v)
-    if type(v) ~= "table" then
-        return v -- primitives already copy
+function misc.readonly(val)
+    if type(val) ~= "table" then
+        return val -- primitives already copy
     end
     local function readonly(tbl, seen)
         seen = seen or {}
@@ -56,7 +56,28 @@ function misc.readonly(v)
         return proxy
     end
 
-    return readonly(v)
+    return readonly(val)
 end
+
+
+---shallow merge two tables without mutating the originals, key conflicts will always be won by t2
+---@generic K, V
+---@param t1 table<K, V>
+---@param t2 table<K, V>
+---@return table<K, V>
+function misc.merge(t1, t2)
+    local result = {}
+
+    for k, v in pairs(t1) do
+        result[k] = v
+    end
+
+    for k, v in pairs(t2) do
+        result[k] = v
+    end
+
+    return result
+end
+
 
 return misc
